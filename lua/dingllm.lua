@@ -111,10 +111,11 @@ local function get_prompt(opts)
   local replace = opts.replace
   local visual_lines = M.get_visual_selection()
   local prompt = ''
-
   if visual_lines then
     prompt = table.concat(visual_lines, '\n')
-    if not replace then
+    if replace then
+      vim.api.nvim_command 'normal! d'
+    else
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', false, true, true), 'nx', false)
     end
   else
